@@ -16,9 +16,6 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: create angular cli project
         run: npx @angular/cli@6.2.9 new build --skip-tests --minimal --routing --skip-git --style scss
-      - name: set analytics off
-        working-directory: build
-        run: npm run ng analytics off -- --global
       - name: create angular library
         working-directory: build
         run: npm run ng -- generate library form-renderer --interactive false
