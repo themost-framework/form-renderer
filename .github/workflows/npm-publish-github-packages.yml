@@ -1,0 +1,38 @@
+name: publish latest
+
+on:
+  release:
+    types: [released]
+env:
+  NG_CLI_ANALYTICS: false
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+          registry-url: https://registry.npmjs.org/
+      - name: create angular cli project
+        run: npx @angular/cli@6.2.9 new build --skip-tests --minimal --routing --skip-git --style scss
+      - name: set analytics off
+        working-directory: build
+        run: npm run ng analytics off -- --global
+      - name: create angular library
+        working-directory: build
+        run: npm run ng -- generate library form-renderer --interactive false
+      - name: remove angular library
+        working-directory: build
+        run: rm -rf projects/form-renderer
+      - name: clone repository
+        working-directory: build
+        run: git clone https://github.com/themost-framework/form-renderer.git projects/form-renderer
+      - name: build library
+        working-directory: build
+        run: npm run ng build form-renderer
+      - name: publish library
+        working-directory: build/dist/form-renderer
+        run: npm publish --access=public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
