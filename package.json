@@ -7,5 +7,15 @@
     "bootstrap": "^4",
     "formiojs": "^4.17.0",
     "lodash": "^4.17.21"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/themost-framework/form-renderer.git"
+  },
+  "author": "THEMOST LP <support@themost.io>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/themost-framework/form-renderer/issues"
+  },
+  "homepage": "https://github.com/themost-framework/form-renderer#readme"
 }
