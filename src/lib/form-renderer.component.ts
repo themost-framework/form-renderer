@@ -100,10 +100,10 @@ export class FormRendererComponent implements OnInit, AfterViewInit, OnChanges, 
       this.instance = created;
       this.instance.setSubmission(this.submission);
 
-      this.instance.ready.then(() => {
+      this.instance.ready.then((event?: any) => {
         this.instance.nosubmit = true;
-        this.formLoad.emit();
-        this.ready.emit();
+        this.formLoad.emit(event);
+        this.ready.emit(event);
       });
 
       this.instance.onSubmit = (submission: any, saved: boolean = false) => {
